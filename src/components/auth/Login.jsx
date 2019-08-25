@@ -16,13 +16,12 @@ const Login = ({ login, errors, isAuth, history }) => {
         }
     }, [isAuth])
 
-    useEffect(() => {
-        if (user_name.length > 3 && password.length > 3) {
-            setIsValid(true);
-        } else {
-            setIsValid(false);
-        }
-    }, [user_name, password])
+    //* change the state of user_name and password, if inputs are not empty change isValid to true
+    const onChangeHandler = (e) => {
+        const { name, value } = e.target
+        name === 'user_name' ? setUserName(value.trim()) : setPassword(value.trim());
+        user_name.length > 3 && password.length > 3 ? setIsValid(true) : setIsValid(false);
+    }
 
     let button = (
         <button
@@ -33,7 +32,7 @@ const Login = ({ login, errors, isAuth, history }) => {
         >
             Ingresar
         </button>
-    )
+    );
 
     if (isValid) {
         button = (
@@ -54,15 +53,16 @@ const Login = ({ login, errors, isAuth, history }) => {
                     <h3 className="text-center my-4">Iniciar sesión</h3>
                     <form onSubmit={(e) => e.preventDefault()}>
                         {
-                            errors.length > 0
-                            &&
+                            errors &&
+                            errors.length > 0 &&
                             <div className="alert alert-danger" role="alert">{errors}</div>
                         }
                         <div className="form-group">
                             <label htmlFor="user">Usuario</label>
                             <input
-                                onChange={(e) => setUserName(e.target.value.trim())}
+                                onChange={(e) => onChangeHandler(e)}
                                 type="text"
+                                name="user_name"
                                 className="form-control"
                                 id="user"
                                 aria-describedby="user"
@@ -72,8 +72,9 @@ const Login = ({ login, errors, isAuth, history }) => {
                         <div className="form-group">
                             <label htmlFor="password">Contraseña</label>
                             <input
-                                onChange={(e) => setPassword(e.target.value.trim())}
+                                onChange={(e) => onChangeHandler(e)}
                                 type="password"
+                                name="password"
                                 className="form-control"
                                 id="password"
                                 aria-describedby="password"

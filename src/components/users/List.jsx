@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import Spinner from '../commons/Spinner';
 import { getUsers } from '../../redux/actions/usersActions';
@@ -10,6 +10,7 @@ const List = ({ users, getUsers, errors }) => {
 
     useEffect(() => {
         getUsers();
+        document.title = "Usuarios";
     }, []);
 
     if (users.length > 0) {

@@ -1,6 +1,10 @@
-import axios from 'axios'
+import axios from 'axios';
 
-export const url = path => `http://localhost:7000/api/user${path}`;
+const host = 'https://7000-f89540f2-fbd8-454f-8c18-44e059204e9c.ws-us0.gitpod.io'
+
+// export const url = path => `http://localhost:7000/api/user${path}`;
+export const url = path => `${host}/api/user${path}`;
+
 
 export const isEmpty = value => {
     return (
