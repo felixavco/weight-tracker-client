@@ -3,7 +3,7 @@ import axios from 'axios';
 import { url, setAuthToken } from '../../utils';
 import jwt_decode from 'jwt-decode';
 
-export const login = userData => dispatch => {
+export const login = (userData) => (dispatch) => {
     axios
         .post(url('/login'), userData)
         .then(res => {
@@ -40,8 +40,9 @@ export const logoutUser = () => (dispatch) => {
     setAuthToken(false);
     // Set current user to {} this will set isAuthenticated to false
     dispatch(setCurrentUser({}));
-};
+}
 
 export const clearCurrentProfile = () => (dispatch) => {
     dispatch(setCurrentUser({}));
-};
+}
+

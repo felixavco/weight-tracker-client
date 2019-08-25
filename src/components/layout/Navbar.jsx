@@ -19,8 +19,7 @@ const Navbar = ({ isAuth, user, logoutUser }) => {
                         {user.name}
                     </a>
                     <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <Link className="dropdown-item" to="#">Action</Link>
-                        <Link className="dropdown-item" to="#">Another action</Link>
+                        <Link className="dropdown-item" to="/profile">Perfil</Link>
                         <div className="dropdown-divider"></div>
                         <Link onClick={logoutUser} className="dropdown-item" to="login">Cerrar Sesión</Link>
                     </div>
@@ -41,7 +40,7 @@ const Navbar = ({ isAuth, user, logoutUser }) => {
         <header>
             <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
                 <div className="container">
-                    <Link className="navbar-brand" to="/"><i className="fas fa-weight"></i>&nbsp;WT</Link>
+                    <Link className="navbar-brand" to="/"><i className="fas fa-weight"></i>&nbsp;Weight Tracker</Link>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>

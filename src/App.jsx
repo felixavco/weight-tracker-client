@@ -12,8 +12,10 @@ import { setCurrentUser, logoutUser, clearCurrentProfile } from './redux/actions
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 
 //Components
+import PrivateRoute from './components/auth/PrivateRoute';
 import Navbar from './components/layout/Navbar';
 import Login from './components/auth/Login';
+import List from './components/users/List';
 
 //* Checks if there is a token stored in LS
 if (localStorage.jwtToken) {
@@ -43,6 +45,9 @@ function App() {
         <Navbar />
         <div id="main" className="container">
           <Route exact path="/login" component={Login} />
+          {/* Protected Routes */}
+          <PrivateRoute exact path="/" component={List} />
+          <PrivateRoute exact path="/List" component={List} />
         </div>
       </Router>
     </Provider>
