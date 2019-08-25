@@ -1,0 +1,17 @@
+
+@import './bootstrap.min';
+
+$disabled-color: #636363;
+
+input {
+    text-align: center; 
+}
+
+.btn-disabled {
+    background: $disabled-color !important;
+    cursor: not-allowed !important;
+    border: none;
+    &:hover {
+        border: none !important;
+    }
+}
