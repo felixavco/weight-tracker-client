@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import Spinner from '../commons/Spinner';
 import { getUsers } from '../../redux/actions/usersActions';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
+
 
 const List = ({ users, getUsers, errors }) => {
 
@@ -19,7 +21,7 @@ const List = ({ users, getUsers, errors }) => {
             <ol style={{ padding: '0' }}>
                 <div className="d-flex justify-content-between">
                     <h5 style={styles}>Nombre</h5>
-                    <h5 style={styles}>Nuevo registro</h5>
+                    <h5 style={styles}>Ultimo registro</h5>
                 </div>
                 <hr />
 
@@ -27,14 +29,25 @@ const List = ({ users, getUsers, errors }) => {
                     users
                         .sort((a, b) => a.name < b.name ? -1 : a.name > b.name ? 1 : 0)
                         .map((user, i) => (
-                            <li
-                                style={{ background: i % 2 === 0 ? '#EAEAEA' : '#F9F9F9' }}
-                                className="p-2 d-flex justify-content-between align-items-center list-item-name"
-                                key={user.id}
-                            >
-                                <Link style={{textDecoration: 'none'}} to={`/user/${user.id}`}><h5>{i + 1} - {user.name}</h5></Link>
-                                <Link className="btn btn-outline-primary" to="/insertar"><i className="fas fa-plus-circle" /></Link>
-                            </li>
+                            <Link style={{ textDecoration: 'none', color: '#333' }} to={`/user/${user.id}`} key={user.id}>
+                                <li
+                                    style={{ background: i % 2 === 0 ? '#EAEAEA' : '#F9F9F9' }}
+                                    className="p-2 d-flex justify-content-between align-items-center list-item-name"
+                                >
+                                    <h5>{i + 1} - {user.name.split(' ')[0]}</h5>
+                                    {
+                                        user.lastest_weight ?
+                                            <span
+                                                title={moment(user.lastest_weight.date, "YYYYMMDD").fromNow()}
+                                            >
+                                                {user.lastest_weight.weight}<small>Lbs</small>
+                                                &nbsp;
+                                                ({(user.lastest_weight.weight / 2.205).toFixed(2)}<small>Kgs</small>)
+                                            </span> :
+                                            <small>Aun no hay registros</small>
+                                    }
+                                </li>
+                            </Link>
                         ))
                 }
             </ol>
