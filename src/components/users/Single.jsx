@@ -11,12 +11,20 @@ const List = ({ user, getUser, logged_user_id, match, history, insertWeight, rem
      * State and events and handlers
      */
     const [weight, setWeight] = useState(0);
+    const [updatedName, setUpdatedName] = useState(user.name || '');
     const [isActive, setIsActive] = useState(false);
+    const [editMode, setEditMode] = useState(true);
     const [id] = useState(match.params.id);
 
     useEffect(() => {
         getUser(id);
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        setEditMode(false);
+        setUpdatedName(user.name);
+        console.log("NAS 1097")
+    }, [user]);
 
     const submitHandler = (e) => {
         e.preventDefault();
@@ -43,6 +51,23 @@ const List = ({ user, getUser, logged_user_id, match, history, insertWeight, rem
         setIsActive(false);
     }
 
+    //* Edit the user Name
+    const editNameHandler = (x) => {
+        if (x) {
+            editUser(id, { name: updatedName });
+        } else {
+            setEditMode(false);
+            setIsActive(false);
+            setUpdatedName(user.name);
+        }
+    }
+
+    //* Enables Edit mode and closed the settings pannel
+    const editHandler = () => {
+        setEditMode(true);
+        setIsActive(false);
+    }
+
     /**
      * Content and triggers
      */
@@ -54,7 +79,7 @@ const List = ({ user, getUser, logged_user_id, match, history, insertWeight, rem
 
         const settings = (
             <div className="d-flex justify-content-around my-2">
-                <button className="btn btn-info btn-sm">Editar usuario</button>
+                <button onClick={editHandler} className="btn btn-info btn-sm">Editar usuario</button>
                 <button onClick={deleteHander} className="btn btn-danger btn-sm">Eliminar usuario</button>
             </div>
         )
@@ -128,22 +153,50 @@ const List = ({ user, getUser, logged_user_id, match, history, insertWeight, rem
             </span>
         )
 
+        const editNameForm = (
+            <form className="d-flex justify-content-center my-2" noValidate>
+                <input
+                    value={updatedName}
+                    onChange={(e) => setUpdatedName(e.target.value)}
+                    type="text"
+                    className="form-control w-75"
+                />
+                <div className="btn-group ml-2" role="group" aria-label="Basic example">
+                    <button
+                        onClick={() => editNameHandler(1)}
+                        type="button"
+                        className={`btn btn-info ${ updatedName && updatedName.length > 0 ? null : 'disabled'}`}
+                        disabled={updatedName && updatedName.length > 0 ? null : 'disabled'}
+                    >
+                        <i className="far fa-save" />
+                    </button>
+                    <button
+                        onClick={() => editNameHandler(0)}
+                        type="button"
+                        className="btn btn-danger"
+                    >
+                        <i className="fas fa-times" />
+                    </button>
+                </div>
+            </form>
+        )
+
+        const headingName = (
+            <h4 className="text-center mt-3">
+                {name}
+                &nbsp;
+                {/* disables settings if user id matches the logged user id */}
+                {logged_user_id !== user.id ? optionsContainer : null}
+            </h4>
+        )
+
         content = (
             <Fragment>
-                <h4 className="text-center mt-3">
-                    {name}
-                    &nbsp;
-                    {/* disables settings if user id matches the logged user id */}
-                    {logged_user_id !== user.id ? optionsContainer : null}
-                </h4>
+                {editMode ? editNameForm : headingName}
                 {isActive ? settings : null}
                 {weightForm}
                 <hr />
-                {
-                    weight_history.length > 0 ?
-                        historyList :
-                        emptyHistoryAlert
-                }
+                {weight_history.length > 0 ? historyList : emptyHistoryAlert}
             </Fragment>
         )
     }
