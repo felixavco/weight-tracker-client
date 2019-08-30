@@ -52,3 +52,51 @@ export const insertWeight = ({ weight, id }) => (dispatch) => {
             });
         });
 }
+
+export const removeWeight = ({ id, reg_id }) => (dispatch) => {
+    axios
+        .put(url(`/${id}/remove`), { reg_id })
+        .then(res => {
+            dispatch({
+                type: GET_USER,
+                payload: res.data
+            });
+        })
+        .catch(err => {
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data
+            });
+        });
+}
+
+export const deleteUser = (id, history) => (dispatch) => {
+    axios
+        .delete(url(`/${id}`))
+        .then(() => {
+            history.push('/');
+        })
+        .catch(err => {
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data
+            });
+        })
+}
+
+export const editUser = (id, data ) => (dispatch) => {
+    axios
+        .put(url(`/${id}`), data)
+        .then(res => {
+            dispatch({
+                type: GET_USER,
+                payload: res.data
+            });
+        })
+        .catch(err => {
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data
+            });
+        });
+}
