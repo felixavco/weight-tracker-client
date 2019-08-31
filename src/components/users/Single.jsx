@@ -23,7 +23,6 @@ const List = ({ user, getUser, logged_user_id, match, history, insertWeight, rem
     useEffect(() => {
         setEditMode(false);
         setUpdatedName(user.name);
-        console.log("NAS 1097")
     }, [user]);
 
     const submitHandler = (e) => {
@@ -161,7 +160,7 @@ const List = ({ user, getUser, logged_user_id, match, history, insertWeight, rem
                     type="text"
                     className="form-control w-75"
                 />
-                <div className="btn-group ml-2" role="group" aria-label="Basic example">
+                <div className="btn-group ml-2" role="group">
                     <button
                         onClick={() => editNameHandler(1)}
                         type="button"
