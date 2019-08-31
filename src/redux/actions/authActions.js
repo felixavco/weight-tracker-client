@@ -25,13 +25,17 @@ export const login = (userData) => (dispatch) => {
         });
 }
 
+export const resetCurrentUser = (userData) => (dispatch) => {
+    dispatch(setCurrentUser(userData));
+}
+
 //Set logged user
 export const setCurrentUser = (userData) => {
     return {
         type: SET_CURRENT_USER,
         payload: userData
     };
-};
+}
 
 export const logoutUser = () => (dispatch) => {
     //remove token from local storage

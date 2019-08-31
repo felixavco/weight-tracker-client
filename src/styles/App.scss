@@ -3,6 +3,10 @@
 
 $disabled-color: #636363;
 
+body {
+    background: #E5E8E8;
+}
+
 input {
     text-align: center; 
 }
@@ -22,4 +26,14 @@ input {
     &:hover {
         transform: scale(1.03);
     }
+}
+
+.pass-cont {
+    position: relative;
+}
+
+.visibleIcon {
+    position: absolute;
+    top: 55%;
+    right: 5%;
 }

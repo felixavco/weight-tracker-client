@@ -20,6 +20,7 @@ const Navbar = ({ isAuth, user, logoutUser }) => {
                     </a>
                     <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                         <Link className="dropdown-item" to="/profile">Perfil</Link>
+                        <Link className="dropdown-item" to="/create">Crear usuario</Link>
                         <div className="dropdown-divider"></div>
                         <Link onClick={logoutUser} className="dropdown-item" to="login">Cerrar Sesión</Link>
                     </div>

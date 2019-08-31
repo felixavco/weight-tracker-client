@@ -17,7 +17,8 @@ import Navbar from './components/layout/Navbar';
 import Login from './components/auth/Login';
 import List from './components/users/List';
 import Single from './components/users/Single';
-import Profile from './components/users/Profile'
+import Profile from './components/users/Profile';
+import Create from './components/users/Create';
 import ErrorPage from './components/errorPages/ErrorPage';
 import NotFound from './components/errorPages/NotFound';
 
@@ -54,6 +55,7 @@ function App() {
           <PrivateRoute exact path="/List" component={List} />
           <PrivateRoute exact path="/user/:id" component={Single} />
           <PrivateRoute exact path="/profile" component={Profile} />
+          <PrivateRoute exact path="/create" component={Create} />
           <Route exact path="/error" component={ErrorPage} />
           {/* CatchAll route  404 page */}
           <Route exact path="/404" component={NotFound} />

@@ -7,6 +7,7 @@ const Login = ({ login, errors, isAuth, history }) => {
     const [user_name, setUserName] = useState('');
     const [password, setPassword] = useState('');
     const [isValid, setIsValid] = useState(false);
+    const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
         if (isAuth) {
@@ -69,16 +70,19 @@ const Login = ({ login, errors, isAuth, history }) => {
                             />
                         </div>
 
-                        <div className="form-group">
+                        <div className="form-group pass-cont">
                             <label htmlFor="password">Contraseña</label>
                             <input
                                 onChange={(e) => onChangeHandler(e)}
-                                type="password"
+                                type={isVisible ? 'text' : 'password'}
                                 name="password"
                                 className="form-control"
                                 id="password"
                                 aria-describedby="password"
                             />
+                            <span onClick={() => setIsVisible(!isVisible)} style={{cursor: 'pointer'}} className="visibleIcon">
+                                {isVisible ? <i className="far fa-eye"/> : <i className="far fa-eye-slash"/>}
+                            </span>
                         </div>
                         <hr />
                         <div className="d-flex justify-content-center">

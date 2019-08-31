@@ -1,6 +1,7 @@
 import axios from 'axios';
+const host = 'https://weight-tracker-api-v1.herokuapp.com';
 
-export const url = path => `http://localhost:7000/api/user${path}`;
+export const url = path => `${host}/api/user${path}`;
 
 
 export const isEmpty = value => {

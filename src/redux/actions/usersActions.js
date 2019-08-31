@@ -84,6 +84,7 @@ export const deleteUser = (id, history) => (dispatch) => {
         })
 }
 
+
 export const editUser = (id, data ) => (dispatch) => {
     axios
         .put(url(`/${id}`), data)
@@ -92,6 +93,20 @@ export const editUser = (id, data ) => (dispatch) => {
                 type: GET_USER,
                 payload: res.data
             });
+        })
+        .catch(err => {
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data
+            });
+        });
+}
+
+export const createUser = (user, history) => (dispatch) => {
+    axios
+        .post(url('/register'), user)
+        .then(() => {
+            history.push('/');
         })
         .catch(err => {
             dispatch({
